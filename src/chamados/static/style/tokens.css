@@ -1,0 +1,16 @@
+/* Design tokens — variaveis globais (paleta Slate + acento Emerald). */
+
+:root {
+    --bg: #f8fafc;
+    --bg-elev: #ffffff;
+    --border: #e2e8f0;
+    --border-strong: #cbd5e1;
+    --text: #0f172a;
+    --text-muted: #64748b;
+    --accent: #059669;
+    --accent-hover: #047857;
+    --accent-soft: #d1fae5;
+    --danger: #dc2626;
+    --warning: #d97706;
+    --info: #0ea5e9;
+}

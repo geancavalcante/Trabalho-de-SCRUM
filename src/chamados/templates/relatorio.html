@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}Relatórios — Helpdesk Labs{% endblock %}
+
+{% block content %}
+<div class="stat-label">Visão consolidada</div>
+<h1>Relatórios</h1>
+<p class="lead-muted mb-4">Indicadores gerais para subsidiar decisões de coordenação. Reflete todos os chamados registrados no sistema.</p>
+
+<div class="row g-3 page-header">
+    <div class="col-md-4">
+        <div class="card-flat">
+            <div class="stat-label">Total de chamados</div>
+            <div class="stat-value">{{ total }}</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card-flat">
+            <div class="stat-label">Tempo médio de atendimento</div>
+            <div class="stat-value">{{ tempo_medio_horas|default:"—" }}{% if tempo_medio_horas %}<span class="report-unit">h</span>{% endif %}</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card-flat">
+            <div class="stat-label">Categorias monitoradas</div>
+            <div class="stat-value">{{ por_categoria|length }}</div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-4">
+        <h2 class="report-section-title">Por status</h2>
+        <div class="card-flat card-flat--flush">
+            <table class="table-clean">
+                <thead><tr><th>Status</th><th class="col-numeric">Total</th></tr></thead>
+                <tbody>
+                    {% for r in por_status %}
+                    <tr><td>{{ r.nome }}</td><td class="font-mono col-numeric">{{ r.total }}</td></tr>
+                    {% empty %}
+                    <tr><td colspan="2" class="report-empty">Sem dados.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <h2 class="report-section-title">Por categoria</h2>
+        <div class="card-flat card-flat--flush">
+            <table class="table-clean">
+                <thead><tr><th>Categoria</th><th class="col-numeric">Total</th></tr></thead>
+                <tbody>
+                    {% for r in por_categoria %}
+                    <tr><td>{{ r.nome }}</td><td class="font-mono col-numeric">{{ r.total }}</td></tr>
+                    {% empty %}
+                    <tr><td colspan="2" class="report-empty">Sem dados.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <h2 class="report-section-title">Por laboratório</h2>
+        <div class="card-flat card-flat--flush">
+            <table class="table-clean">
+                <thead><tr><th>Laboratório</th><th class="col-numeric">Total</th></tr></thead>
+                <tbody>
+                    {% for r in por_laboratorio %}
+                    <tr><td>{{ r.laboratorio__nome }}</td><td class="font-mono col-numeric">{{ r.total }}</td></tr>
+                    {% empty %}
+                    <tr><td colspan="2" class="report-empty">Sem dados.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+/* Hierarquia tipografica: headings, paragrafos e rotulos de estatistica. */
+
+h1, h2, h3, h4 {
+    letter-spacing: -0.02em;
+    font-weight: 600;
+    line-height: 1.15;
+}
+
+h1 {
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    margin-bottom: 0.25rem;
+}
+
+h2 { font-size: 1.35rem; }
+
+.lead-muted {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    max-width: 65ch;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.stat-value {
+    font-size: 1.85rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text);
+}
+
+.stat-value--sm {
+    font-size: 1.3rem;
+}

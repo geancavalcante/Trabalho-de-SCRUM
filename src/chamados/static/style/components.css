@@ -1,0 +1,211 @@
+/* Componentes reutilizaveis: cartoes, botoes, badges, formularios, tabelas. */
+
+/* --- Cards --- */
+.card-flat {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem;
+    transition: border-color 0.18s ease;
+}
+
+.card-flat:hover {
+    border-color: var(--border-strong);
+}
+
+.card-flat--flush {
+    padding: 0;
+}
+
+/* --- Botoes --- */
+.btn-primary-custom {
+    background: var(--accent);
+    border: 1px solid var(--accent);
+    color: white;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 7px;
+    transition: all 0.15s ease;
+    font-size: 0.92rem;
+}
+
+.btn-primary-custom:hover {
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+    color: white;
+}
+
+.btn-primary-custom:active {
+    transform: translateY(1px);
+}
+
+.btn-primary-custom--block {
+    width: 100%;
+}
+
+.btn-ghost {
+    background: transparent;
+    border: 1px solid var(--border-strong);
+    color: var(--text);
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 7px;
+    font-size: 0.92rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+.btn-ghost:hover {
+    background: var(--bg);
+    color: var(--text);
+}
+
+/* --- Tabelas --- */
+.table-clean {
+    width: 100%;
+}
+
+.table-clean th {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    font-weight: 500;
+    text-align: left;
+    padding: 0.75rem 0.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.table-clean td {
+    padding: 0.85rem 0.5rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.92rem;
+    vertical-align: middle;
+}
+
+.table-clean tr:hover td { background: var(--bg); }
+
+.table-clean th:first-child,
+.table-clean td:first-child {
+    padding-left: 1.25rem;
+}
+
+.table-clean th:last-child,
+.table-clean td:last-child {
+    padding-right: 1.25rem;
+}
+
+.table-clean .num,
+.table-clean .col-id {
+    color: var(--text-muted);
+}
+
+.table-clean .col-numeric {
+    text-align: right;
+}
+
+.table-link {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* --- Badges de status --- */
+.badge-status {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border: 1px solid;
+}
+
+.badge-novo {
+    color: var(--info);
+    border-color: #bae6fd;
+    background: #f0f9ff;
+}
+
+.badge-em_andamento {
+    color: var(--warning);
+    border-color: #fed7aa;
+    background: #fff7ed;
+}
+
+.badge-concluido {
+    color: var(--accent);
+    border-color: #a7f3d0;
+    background: var(--accent-soft);
+}
+
+.badge-cancelado {
+    color: var(--text-muted);
+    border-color: var(--border-strong);
+    background: var(--bg);
+}
+
+/* --- Indicadores de prioridade --- */
+.prio-baixa { color: var(--text-muted); }
+.prio-media { color: var(--info); }
+.prio-alta { color: var(--warning); }
+.prio-critica { color: var(--danger); font-weight: 600; }
+
+/* --- Formularios --- */
+.form-control,
+.form-select {
+    border-radius: 7px;
+    border-color: var(--border-strong);
+    font-size: 0.92rem;
+    padding: 0.55rem 0.75rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.form-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 0.35rem;
+}
+
+.form-hint {
+    color: var(--text-muted);
+    font-size: 0.78rem;
+}
+
+.field-error {
+    color: var(--danger);
+    font-size: 0.78rem;
+}
+
+/* --- Trilhas / historico --- */
+.historic-item {
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.88rem;
+    color: var(--text-muted);
+}
+
+.historic-item:last-child { border-bottom: none; }
+
+.historic-item .actor {
+    color: var(--text);
+    font-weight: 500;
+}
+
+.historic-item__body {
+    color: var(--text);
+    margin-top: 0.25rem;
+    white-space: pre-wrap;
+}
+
+.historic-item__meta {
+    font-size: 0.78rem;
+}

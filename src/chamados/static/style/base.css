@@ -1,0 +1,35 @@
+/* Reset minimo, body, container e helpers de tipografia mono. */
+
+* { box-sizing: border-box; }
+
+html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+body { min-height: 100dvh; }
+
+.font-mono {
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.container-tight {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+main.container-tight {
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+}
+
+@media (max-width: 768px) {
+    .container-tight {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}

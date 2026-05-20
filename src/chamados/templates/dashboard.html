@@ -1,8 +1,8 @@
-{% extends "chamados/base.html" %}
+{% extends "base.html" %}
 {% block title %}Dashboard — Helpdesk Labs{% endblock %}
 
 {% block content %}
-<div class="row g-3 align-items-end" style="margin-bottom: 2rem;">
+<div class="row g-3 align-items-end page-header">
     <div class="col-md-8">
         <div class="stat-label">{% if perfil %}{{ perfil.get_tipo_display }}{% else %}Administrador{% endif %}</div>
         <h1>Olá, {{ user.username }}.</h1>
@@ -10,12 +10,12 @@
     </div>
     <div class="col-md-4 text-md-end">
         {% if user.perfil.is_solicitante or user.perfil.is_coordenador or user.is_superuser %}
-            <a href="{% url 'chamados:criar' %}" class="btn-primary-custom" style="text-decoration: none; display: inline-block;">Abrir novo chamado</a>
+            <a href="{% url 'chamados:criar' %}" class="btn-primary-custom btn-link">Abrir novo chamado</a>
         {% endif %}
     </div>
 </div>
 
-<div class="row g-3" style="margin-bottom: 2rem;">
+<div class="row g-3 page-header">
     {% for rotulo, total in resumo.items %}
     <div class="col-6 col-md-3">
         <div class="card-flat">
@@ -26,31 +26,31 @@
     {% endfor %}
 </div>
 
-<div class="d-flex align-items-center justify-content-between" style="margin-bottom: 0.75rem;">
-    <h2 style="margin:0;">Chamados recentes</h2>
+<div class="d-flex align-items-center justify-content-between section-spacer">
+    <h2 class="page-header--no-margin">Chamados recentes</h2>
     <a href="{% url 'chamados:lista' %}" class="nav-link-custom">Ver todos →</a>
 </div>
 
 {% if recentes %}
-<div class="card-flat" style="padding: 0;">
+<div class="card-flat card-flat--flush">
     <table class="table-clean">
         <thead>
             <tr>
-                <th style="padding-left: 1.25rem;">ID</th>
+                <th>ID</th>
                 <th>Título</th>
                 <th>Laboratório</th>
                 <th>Prioridade</th>
-                <th style="padding-right: 1.25rem;">Status</th>
+                <th>Status</th>
             </tr>
         </thead>
         <tbody>
             {% for c in recentes %}
             <tr>
-                <td class="font-mono" style="padding-left: 1.25rem; color: var(--text-muted);">#{{ c.pk }}</td>
-                <td><a href="{{ c.get_absolute_url }}" style="color: var(--text); text-decoration: none; font-weight: 500;">{{ c.titulo }}</a></td>
+                <td class="font-mono col-id">#{{ c.pk }}</td>
+                <td><a href="{{ c.get_absolute_url }}" class="table-link">{{ c.titulo }}</a></td>
                 <td>{{ c.laboratorio.nome }}</td>
                 <td><span class="prio-{{ c.prioridade|lower }}">{{ c.get_prioridade_display }}</span></td>
-                <td style="padding-right: 1.25rem;"><span class="badge-status badge-{{ c.status|lower }}">{{ c.get_status_display }}</span></td>
+                <td><span class="badge-status badge-{{ c.status|lower }}">{{ c.get_status_display }}</span></td>
             </tr>
             {% endfor %}
         </tbody>
@@ -58,13 +58,13 @@
 </div>
 {% else %}
 <div class="empty-state">
-    <div class="empty-icon">
+    <div class="empty-state__icon">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
     </div>
-    <h2 style="font-size: 1.1rem; margin-bottom: 0.35rem;">Nenhum chamado por aqui ainda.</h2>
-    <p class="lead-muted" style="margin: 0 0 1rem 0;">Quando houver chamados visíveis para você, eles aparecerão nesta lista.</p>
+    <h2 class="empty-state__title">Nenhum chamado por aqui ainda.</h2>
+    <p class="lead-muted">Quando houver chamados visíveis para você, eles aparecerão nesta lista.</p>
     {% if user.perfil.is_solicitante or user.perfil.is_coordenador %}
-        <a href="{% url 'chamados:criar' %}" class="btn-primary-custom" style="text-decoration: none; display: inline-block;">Abrir o primeiro chamado</a>
+        <a href="{% url 'chamados:criar' %}" class="btn-primary-custom btn-link">Abrir o primeiro chamado</a>
     {% endif %}
 </div>
 {% endif %}

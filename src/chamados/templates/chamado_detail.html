@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% block title %}Chamado #{{ chamado.pk }} — Helpdesk Labs{% endblock %}
+
+{% block content %}
+<div class="row g-3 align-items-start page-header--compact">
+    <div class="col-lg-8">
+        <div class="font-mono chamado-id">#{{ chamado.pk }}</div>
+        <h1 class="mb-2">{{ chamado.titulo }}</h1>
+        <div class="d-flex gap-2 align-items-center flex-wrap">
+            <span class="badge-status badge-{{ chamado.status|lower }}">{{ chamado.get_status_display }}</span>
+            <span class="prio-{{ chamado.prioridade|lower }} chamado-meta">Prioridade {{ chamado.get_prioridade_display }}</span>
+            <span class="chamado-meta text-muted">· {{ chamado.get_categoria_display }} · {{ chamado.laboratorio.nome }}</span>
+        </div>
+    </div>
+    <div class="col-lg-4 text-lg-end">
+        <a href="{% url 'chamados:lista' %}" class="nav-link-custom">← Voltar à lista</a>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="card-flat chamado-detail-section">
+            <div class="stat-label mb-2">Descrição</div>
+            <p class="m-0 historic-item__body">{{ chamado.descricao }}</p>
+            {% if chamado.anexo %}
+            <div class="attachment-link">
+                <div class="stat-label mb-1">Anexo</div>
+                <a href="{{ chamado.anexo.url }}" target="_blank" rel="noopener" class="font-mono attachment-link__url">{{ chamado.anexo.name }}</a>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="card-flat chamado-detail-section">
+            <div class="stat-label mb-3">Comentários ({{ comentarios|length }})</div>
+            {% if comentarios %}
+                {% for c in comentarios %}
+                <div class="historic-item">
+                    <div><span class="actor">{{ c.autor.username }}</span> · <span class="font-mono">{{ c.criado_em|date:"d/m/Y H:i" }}</span></div>
+                    <div class="historic-item__body">{{ c.texto }}</div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p class="lead-muted m-0">Nenhum comentário ainda.</p>
+            {% endif %}
+
+            {% if pode_comentar %}
+            <form method="post" class="comment-form">
+                {% csrf_token %}
+                <input type="hidden" name="acao" value="comentar">
+                {{ comentario_form.texto }}
+                <div class="action-stack--inline">
+                    <button type="submit" class="btn-primary-custom">Comentar</button>
+                </div>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card-flat chamado-detail-section">
+            <div class="stat-label mb-2">Detalhes</div>
+            <div class="detail-info">
+                <div><span class="label">Solicitante:</span> {{ chamado.solicitante.username }}</div>
+                <div><span class="label">Técnico:</span> {{ chamado.tecnico.username|default:"Não atribuído" }}</div>
+                <div><span class="label">Aberto em:</span> <span class="font-mono">{{ chamado.criado_em|date:"d/m/Y H:i" }}</span></div>
+                {% if chamado.concluido_em %}
+                <div><span class="label">Concluído em:</span> <span class="font-mono">{{ chamado.concluido_em|date:"d/m/Y H:i" }}</span></div>
+                {% endif %}
+                {% if chamado.tempo_atendimento_horas %}
+                <div><span class="label">Tempo de atendimento:</span> <span class="font-mono">{{ chamado.tempo_atendimento_horas }}h</span></div>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if pode_atribuir %}
+        <div class="card-flat chamado-detail-section">
+            <div class="stat-label mb-2">Atribuir técnico</div>
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="acao" value="atribuir">
+                {{ atribuir_form.tecnico }}
+                <div class="action-stack--inline">
+                    <button type="submit" class="btn-primary-custom btn-primary-custom--block">Atribuir</button>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+
+        {% if pode_alterar_status %}
+        <div class="card-flat chamado-detail-section">
+            <div class="stat-label mb-2">Alterar status</div>
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="acao" value="mudar_status">
+                {{ status_form.status }}
+                <div class="action-stack--inline">
+                    <button type="submit" class="btn-primary-custom btn-primary-custom--block">Atualizar</button>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+
+        <div class="card-flat">
+            <div class="stat-label mb-2">Histórico</div>
+            {% if historico %}
+                {% for h in historico %}
+                <div class="historic-item">
+                    <span class="actor">{{ h.autor.username }}</span> alterou de <span class="font-mono">{{ h.de_status|default:"—" }}</span> para <span class="font-mono">{{ h.para_status }}</span>
+                    <div class="historic-item__meta">{{ h.criado_em|date:"d/m/Y H:i" }}</div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p class="lead-muted m-0">Sem histórico.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

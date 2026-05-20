@@ -36,7 +36,7 @@ def dashboard(request):
     perfil = getattr(request.user, "perfil", None)
     return render(
         request,
-        "chamados/dashboard.html",
+        "dashboard.html",
         {
             "resumo": resumo,
             "recentes": recentes,
@@ -61,7 +61,7 @@ def lista_chamados(request):
     qs = qs.select_related("laboratorio", "solicitante", "tecnico")
     return render(
         request,
-        "chamados/chamado_list.html",
+        "chamado_list.html",
         {
             "chamados": qs,
             "status_atual": status or "",
@@ -99,7 +99,7 @@ def criar_chamado(request):
             return redirect(chamado.get_absolute_url())
     else:
         form = ChamadoForm()
-    return render(request, "chamados/chamado_form.html", {"form": form})
+    return render(request, "chamado_form.html", {"form": form})
 
 
 @login_required
@@ -200,7 +200,7 @@ def detalhe_chamado(request, pk):
     historico = chamado.historico.select_related("autor")
     return render(
         request,
-        "chamados/chamado_detail.html",
+        "chamado_detail.html",
         {
             "chamado": chamado,
             "comentarios": comentarios,
@@ -245,7 +245,7 @@ def relatorios(request):
     status_label = dict(Chamado.STATUS_CHOICES)
     return render(
         request,
-        "chamados/relatorio.html",
+        "relatorio.html",
         {
             "por_categoria": [
                 {"nome": categoria_label.get(r["categoria"], r["categoria"]), "total": r["total"]}

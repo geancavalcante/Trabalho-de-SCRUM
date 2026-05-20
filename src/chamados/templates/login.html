@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Acessar — Helpdesk Labs{% endblock %}
+
+{% block content %}
+<div class="row g-0 login-grid">
+    <div class="col-12 col-md-5 col-lg-4 login-left">
+        <div class="login-card">
+            <div class="login-card__head">
+                <div class="login-card__eyebrow">HELPDESK LABS</div>
+                <h1 class="login-card__title">Acesse sua conta</h1>
+                <p class="lead-muted">Sistema de chamados para os laboratórios de TI do campus.</p>
+            </div>
+
+            <form method="post" novalidate>
+                {% csrf_token %}
+                {% if form.errors %}
+                    <ul class="messages"><li class="error">Usuário ou senha inválidos. Verifique e tente novamente.</li></ul>
+                {% endif %}
+
+                <div class="login-form__field">
+                    <label for="id_username" class="form-label">Usuário</label>
+                    <input type="text" name="username" id="id_username" class="form-control" autofocus required autocomplete="username">
+                </div>
+                <div class="login-form__field login-form__field--last">
+                    <label for="id_password" class="form-label">Senha</label>
+                    <input type="password" name="password" id="id_password" class="form-control" required autocomplete="current-password">
+                </div>
+                <button type="submit" class="btn-primary-custom btn-primary-custom--block">Entrar</button>
+                <input type="hidden" name="next" value="{{ next }}">
+            </form>
+
+            <div class="login-card__demo">
+                <strong>Demo (dev local)</strong><br>
+                <span class="font-mono">solicitante1 / tecnico1 / coordenador1</span><br>
+                Senha: <span class="font-mono">Demo@2026</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-7 col-lg-8 d-none d-md-flex login-hero">
+        <div class="login-hero__inner">
+            <div class="font-mono login-hero__version">v1.0 — MVP</div>
+            <h2 class="login-hero__title">Da conversa avulsa para o registro auditável.</h2>
+            <p class="lead-muted">Centraliza pedidos de suporte, distribui para a equipe técnica e fecha o ciclo com histórico, comentários e relatórios.</p>
+            <div class="login-hero__stats">
+                <div><div class="stat-value stat-value--sm">3</div><div class="stat-label">perfis</div></div>
+                <div><div class="stat-value stat-value--sm">4</div><div class="stat-label">status</div></div>
+                <div><div class="stat-value stat-value--sm">6</div><div class="stat-label">categorias</div></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+/* Estados de feedback: flash messages e empty states. */
+
+.messages {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem 0;
+}
+
+.messages li {
+    padding: 0.65rem 1rem;
+    border-radius: 7px;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.messages li.success {
+    background: var(--accent-soft);
+    color: var(--accent-hover);
+    border: 1px solid #a7f3d0;
+}
+
+.messages li.error,
+.messages li.danger {
+    background: #fee2e2;
+    color: var(--danger);
+    border: 1px solid #fecaca;
+}
+
+.empty-state {
+    padding: 3rem 1.5rem;
+    text-align: left;
+    border: 1px dashed var(--border-strong);
+    border-radius: 10px;
+    background: var(--bg-elev);
+}
+
+.empty-state__icon {
+    width: 36px;
+    height: 36px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+}
+
+.empty-state__icon svg {
+    width: 18px;
+    height: 18px;
+    color: var(--text-muted);
+}
+
+.empty-state__title {
+    font-size: 1.1rem;
+    margin-bottom: 0.35rem;
+}

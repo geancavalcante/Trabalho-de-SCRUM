@@ -1,0 +1,62 @@
+/* Navbar e elementos de navegacao. */
+
+.navbar-custom {
+    background: var(--bg-elev);
+    border-bottom: 1px solid var(--border);
+    padding: 0.85rem 0;
+}
+
+.navbar-brand-custom {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 1.05rem;
+}
+
+.navbar-brand-custom .dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 2px;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+}
+
+.nav-link-custom {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.92rem;
+    padding: 0.5rem 0.85rem;
+    border-radius: 6px;
+    transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-link-custom:hover,
+.nav-link-custom.active {
+    color: var(--text);
+    background: var(--bg);
+}
+
+.nav-link-custom--muted {
+    color: var(--text-muted);
+}
+
+.nav-link-custom--muted:hover {
+    color: var(--text-muted);
+    background: transparent;
+    cursor: default;
+}
+
+.logout-form {
+    display: inline;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .nav-link-custom {
+        padding: 0.5rem 0.6rem;
+    }
+}
