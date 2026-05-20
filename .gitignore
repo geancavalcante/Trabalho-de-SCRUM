@@ -1,0 +1,58 @@
+# Credenciais e segredos — NUNCA versionar
+core/git_config.json
+git_config.json
+.env
+*.pem
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+
+# Virtualenvs
+.venv/
+venv/
+env/
+ENV/
+
+# Django
+*.log
+db.sqlite3
+db.sqlite3-journal
+src/db.sqlite3
+src/media/
+src/staticfiles/
+src/logs/
+media/
+staticfiles/
+logs/
+
+# Pytest / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Pandoc/Build artifacts (manter o .md fonte; .pdf/.docx gerados são opcionais)
+docs/*.pdf
+docs/*.docx
+!docs/.gitkeep
+# Excecao: a Apresentacao Final em PDF e' entregue como artefato final
+!docs/APRESENTACAO_FINAL.pdf
+
+# Node/npx skills cache (se gerar artefatos locais)
+node_modules/
+.npm/
+.agents/
+skills-lock.json
