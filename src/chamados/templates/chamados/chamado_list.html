@@ -1,0 +1,87 @@
+{% extends "chamados/base.html" %}
+{% block title %}Chamados — Helpdesk Labs{% endblock %}
+
+{% block content %}
+<div class="row g-3 align-items-end" style="margin-bottom: 1.5rem;">
+    <div class="col-md-8">
+        <div class="stat-label">Fila de atendimento</div>
+        <h1>Chamados</h1>
+        <p class="lead-muted">Lista filtrada conforme seu perfil. Solicitantes veem apenas o que abriram; técnicos, o que lhes foi atribuído.</p>
+    </div>
+    <div class="col-md-4 text-md-end">
+        {% if user.perfil.is_solicitante or user.perfil.is_coordenador or user.is_superuser %}
+            <a href="{% url 'chamados:criar' %}" class="btn-primary-custom" style="text-decoration: none; display: inline-block;">Abrir chamado</a>
+        {% endif %}
+    </div>
+</div>
+
+<form method="get" class="card-flat" style="margin-bottom: 1.25rem;">
+    <div class="row g-2 align-items-end">
+        <div class="col-md-3">
+            <label class="form-label">Status</label>
+            <select name="status" class="form-select">
+                <option value="">Todos</option>
+                {% for v, l in status_choices %}<option value="{{ v }}" {% if status_atual == v %}selected{% endif %}>{{ l }}</option>{% endfor %}
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Prioridade</label>
+            <select name="prioridade" class="form-select">
+                <option value="">Todas</option>
+                {% for v, l in prioridade_choices %}<option value="{{ v }}" {% if prioridade_atual == v %}selected{% endif %}>{{ l }}</option>{% endfor %}
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Categoria</label>
+            <select name="categoria" class="form-select">
+                <option value="">Todas</option>
+                {% for v, l in categoria_choices %}<option value="{{ v }}" {% if categoria_atual == v %}selected{% endif %}>{{ l }}</option>{% endfor %}
+            </select>
+        </div>
+        <div class="col-md-3 d-grid">
+            <button type="submit" class="btn-ghost">Filtrar</button>
+        </div>
+    </div>
+</form>
+
+{% if chamados %}
+<div class="card-flat" style="padding: 0;">
+    <table class="table-clean">
+        <thead>
+            <tr>
+                <th style="padding-left: 1.25rem;">ID</th>
+                <th>Título</th>
+                <th>Categoria</th>
+                <th>Laboratório</th>
+                <th>Solicitante</th>
+                <th>Técnico</th>
+                <th>Prioridade</th>
+                <th style="padding-right: 1.25rem;">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in chamados %}
+            <tr>
+                <td class="font-mono" style="padding-left: 1.25rem; color: var(--text-muted);">#{{ c.pk }}</td>
+                <td><a href="{{ c.get_absolute_url }}" style="color: var(--text); text-decoration: none; font-weight: 500;">{{ c.titulo }}</a></td>
+                <td>{{ c.get_categoria_display }}</td>
+                <td>{{ c.laboratorio.nome }}</td>
+                <td>{{ c.solicitante.username }}</td>
+                <td>{{ c.tecnico.username|default:"—" }}</td>
+                <td><span class="prio-{{ c.prioridade|lower }}">{{ c.get_prioridade_display }}</span></td>
+                <td style="padding-right: 1.25rem;"><span class="badge-status badge-{{ c.status|lower }}">{{ c.get_status_display }}</span></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="empty-state">
+    <div class="empty-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </div>
+    <h2 style="font-size: 1.1rem; margin-bottom: 0.35rem;">Nenhum chamado encontrado.</h2>
+    <p class="lead-muted" style="margin: 0;">Ajuste os filtros ou abra um novo chamado.</p>
+</div>
+{% endif %}
+{% endblock %}

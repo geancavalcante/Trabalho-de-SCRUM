@@ -1,0 +1,53 @@
+{% extends "chamados/base.html" %}
+{% block title %}Abrir chamado — Helpdesk Labs{% endblock %}
+
+{% block content %}
+<div style="max-width: 720px;">
+    <div class="stat-label">Novo registro</div>
+    <h1>Abrir chamado</h1>
+    <p class="lead-muted" style="margin-bottom: 1.75rem;">Descreva o problema com o máximo de contexto. Quanto mais clara a descrição, mais rápida a triagem.</p>
+
+    <form method="post" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+
+        <div style="margin-bottom: 1.1rem;">
+            <label for="{{ form.titulo.id_for_label }}" class="form-label">Título</label>
+            {{ form.titulo }}
+            {% if form.titulo.errors %}<small style="color: var(--danger);">{{ form.titulo.errors|join:" " }}</small>{% endif %}
+        </div>
+
+        <div style="margin-bottom: 1.1rem;">
+            <label for="{{ form.descricao.id_for_label }}" class="form-label">Descrição</label>
+            {{ form.descricao }}
+            {% if form.descricao.errors %}<small style="color: var(--danger);">{{ form.descricao.errors|join:" " }}</small>{% endif %}
+        </div>
+
+        <div class="row g-3">
+            <div class="col-md-4">
+                <label for="{{ form.categoria.id_for_label }}" class="form-label">Categoria</label>
+                {{ form.categoria }}
+            </div>
+            <div class="col-md-4">
+                <label for="{{ form.prioridade.id_for_label }}" class="form-label">Prioridade</label>
+                {{ form.prioridade }}
+            </div>
+            <div class="col-md-4">
+                <label for="{{ form.laboratorio.id_for_label }}" class="form-label">Laboratório</label>
+                {{ form.laboratorio }}
+            </div>
+        </div>
+
+        <div style="margin-top: 1.1rem;">
+            <label for="{{ form.anexo.id_for_label }}" class="form-label">Anexo (opcional)</label>
+            {{ form.anexo }}
+            <small style="color: var(--text-muted); font-size: 0.78rem;">PNG, JPG, PDF, TXT ou LOG · até 5MB.</small>
+            {% if form.anexo.errors %}<br><small style="color: var(--danger);">{{ form.anexo.errors|join:" " }}</small>{% endif %}
+        </div>
+
+        <div style="margin-top: 1.75rem; display: flex; gap: 0.5rem;">
+            <button type="submit" class="btn-primary-custom">Criar chamado</button>
+            <a href="{% url 'chamados:lista' %}" class="btn-ghost" style="text-decoration: none; display: inline-flex; align-items: center;">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
