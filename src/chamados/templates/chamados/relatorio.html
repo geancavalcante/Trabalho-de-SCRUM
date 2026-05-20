@@ -1,0 +1,77 @@
+{% extends "chamados/base.html" %}
+{% block title %}Relatórios — Helpdesk Labs{% endblock %}
+
+{% block content %}
+<div class="stat-label">Visão consolidada</div>
+<h1>Relatórios</h1>
+<p class="lead-muted" style="margin-bottom: 1.75rem;">Indicadores gerais para subsidiar decisões de coordenação. Reflete todos os chamados registrados no sistema.</p>
+
+<div class="row g-3" style="margin-bottom: 2rem;">
+    <div class="col-md-4">
+        <div class="card-flat">
+            <div class="stat-label">Total de chamados</div>
+            <div class="stat-value">{{ total }}</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card-flat">
+            <div class="stat-label">Tempo médio de atendimento</div>
+            <div class="stat-value">{{ tempo_medio_horas|default:"—" }}{% if tempo_medio_horas %}<span style="font-size: 0.95rem; color: var(--text-muted); margin-left: 0.25rem;">h</span>{% endif %}</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card-flat">
+            <div class="stat-label">Categorias monitoradas</div>
+            <div class="stat-value">{{ por_categoria|length }}</div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-4">
+        <h2 style="font-size: 1.05rem; margin-bottom: 0.75rem;">Por status</h2>
+        <div class="card-flat" style="padding: 0;">
+            <table class="table-clean">
+                <thead><tr><th style="padding-left: 1.25rem;">Status</th><th style="text-align:right; padding-right: 1.25rem;">Total</th></tr></thead>
+                <tbody>
+                    {% for r in por_status %}
+                    <tr><td style="padding-left: 1.25rem;">{{ r.nome }}</td><td class="font-mono" style="text-align:right; padding-right: 1.25rem;">{{ r.total }}</td></tr>
+                    {% empty %}
+                    <tr><td colspan="2" style="padding: 1rem 1.25rem; color: var(--text-muted);">Sem dados.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <h2 style="font-size: 1.05rem; margin-bottom: 0.75rem;">Por categoria</h2>
+        <div class="card-flat" style="padding: 0;">
+            <table class="table-clean">
+                <thead><tr><th style="padding-left: 1.25rem;">Categoria</th><th style="text-align:right; padding-right: 1.25rem;">Total</th></tr></thead>
+                <tbody>
+                    {% for r in por_categoria %}
+                    <tr><td style="padding-left: 1.25rem;">{{ r.nome }}</td><td class="font-mono" style="text-align:right; padding-right: 1.25rem;">{{ r.total }}</td></tr>
+                    {% empty %}
+                    <tr><td colspan="2" style="padding: 1rem 1.25rem; color: var(--text-muted);">Sem dados.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <h2 style="font-size: 1.05rem; margin-bottom: 0.75rem;">Por laboratório</h2>
+        <div class="card-flat" style="padding: 0;">
+            <table class="table-clean">
+                <thead><tr><th style="padding-left: 1.25rem;">Laboratório</th><th style="text-align:right; padding-right: 1.25rem;">Total</th></tr></thead>
+                <tbody>
+                    {% for r in por_laboratorio %}
+                    <tr><td style="padding-left: 1.25rem;">{{ r.laboratorio__nome }}</td><td class="font-mono" style="text-align:right; padding-right: 1.25rem;">{{ r.total }}</td></tr>
+                    {% empty %}
+                    <tr><td colspan="2" style="padding: 1rem 1.25rem; color: var(--text-muted);">Sem dados.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
